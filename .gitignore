@@ -1,0 +1,7 @@
+node_modules/
+nexbank.db
+nexbank.db-shm
+nexbank.db-wal
+.env
+.env.*
+!.env.example

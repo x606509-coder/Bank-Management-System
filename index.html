@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexBank - Modern Banking Management</title>
+    <!-- Custom Font Pairing: Plus Jakarta Sans & Space Grotesk -->
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="Style.css">
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="brand">
+                <i class="fa-solid fa-building-columns"></i>
+                <h2>NexBank</h2>
+            </div>
+            <nav class="nav-menu">
+                <a href="#" class="nav-link active" data-target="dashboard-view"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
+                <a href="#" class="nav-link" data-target="customer-view"><i class="fa-solid fa-users"></i> Customers</a>
+                <a href="#" class="nav-link" data-target="account-view"><i class="fa-solid fa-wallet"></i> Accounts</a>
+                <a href="#" class="nav-link" data-target="transaction-view"><i class="fa-solid fa-money-right-to-left"></i> Transactions</a>
+                <a href="#" class="nav-link" data-target="loan-view"><i class="fa-solid fa-hand-holding-dollar"></i> Loans</a>
+                <a href="#" class="nav-link" data-target="payment-view"><i class="fa-solid fa-file-invoice-dollar"></i> Payments</a>
+                <a href="#" class="nav-link" data-target="employee-view"><i class="fa-solid fa-user-tie"></i> Employees</a>
+                <a href="#" class="nav-link" data-target="bank-view"><i class="fa-solid fa-code-branch"></i> Bank & Branch</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="topbar">
+                <button class="menu-btn" id="menu-btn"><i class="fa-solid fa-bars"></i></button>
+                <div class="user-profile">
+                    <span class="user-name">Admin Portal</span>
+                    <div class="avatar"><i class="fa-solid fa-user"></i></div>
+                    <button id="logout-btn" title="Logout" style="background:none;border:none;cursor:pointer;color:#1a3a5c;font-size:1.1rem;margin-left:8px;"><i class="fa-solid fa-right-from-bracket"></i></button>
+                </div>
+            </header>
+
+            <div class="content-area">
+                
+                <!-- DASHBOARD VIEW -->
+                <section id="dashboard-view" class="view active">
+                    <div class="view-header">
+                        <h1>Overview</h1>
+                        <p>Welcome back! Here's your banking summary.</p>
+                    </div>
+                    <div class="dashboard-cards">
+                        <div class="card stat-card">
+                            <div class="stat-icon" style="background: #dbeafe; color: #1a3a5c;"><i class="fa-solid fa-users"></i></div>
+                            <div class="stat-info">
+                                <h3>Total Customers</h3>
+                                <p id="tot-customers">0</p>
+                            </div>
+                        </div>
+                        <div class="card stat-card">
+                            <div class="stat-icon" style="background: #f5e6c0; color: #92650a;"><i class="fa-solid fa-wallet"></i></div>
+                            <div class="stat-info">
+                                <h3>Total Accounts</h3>
+                                <p id="tot-accounts">0</p>
+                            </div>
+                        </div>
+                        <div class="card stat-card">
+                            <div class="stat-icon" style="background: #e0f2fe; color: #0369a1;"><i class="fa-solid fa-sack-dollar"></i></div>
+                            <div class="stat-info">
+                                <h3>Total Balance</h3>
+                                <p id="tot-balance">$0</p>
+                            </div>
+                        </div>
+                        <div class="card stat-card">
+                            <div class="stat-icon" style="background: #fef3c7; color: #b45309;"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+                            <div class="stat-info">
+                                <h3>Active Loans</h3>
+                                <p id="tot-loans">0</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- CUSTOMER VIEW -->
+                <section id="customer-view" class="view">
+                    <div class="view-header">
+                        <h1>Customer Management</h1>
+                    </div>
+                    <div class="grid-layout">
+                        <div class="card">
+                            <h2>Add / Update Customer</h2>
+                            <form id="customer-form">
+                                <div class="form-group">
+                                    <label>Customer ID</label>
+                                    <input type="text" name="id" required placeholder="C001">
+                                </div>
+                                <div class="form-group">
+                                    <label>Full Name</label>
+                                    <input type="text" name="name" required placeholder="John Doe">
+                                </div>
+                                <div class="form-group">
+                                    <label>Date of Birth</label>
+                                    <input type="date" name="dob" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Phone Number</label>
+                                    <input type="tel" name="phone" required placeholder="123-456-7890">
+                                </div>
+                                <div class="form-group">
+                                    <label>Address</label>
+                                    <textarea name="address" required placeholder="Enter full address..."></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Save Customer</button>
+                            </form>
+                        </div>
+                        <div class="card table-card">
+                            <h2>Customer Directory</h2>
+                            <div class="table-responsive">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Name</th>
+                                            <th>DOB</th>
+                                            <th>Phone</th>
+                                            <th>Address</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="customer-tbody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ACCOUNT VIEW -->
+                <section id="account-view" class="view">
+                    <div class="view-header">
+                        <h1>Account Management</h1>
+                    </div>
+                    <div class="grid-layout">
+                        <div class="card">
+                            <h2>Create Account</h2>
+                            <form id="account-form">
+                                <div class="form-group">
+                                    <label>Account ID</label>
+                                    <input type="text" name="id" required placeholder="A001">
+                                </div>
+                                <div class="form-group">
+                                    <label>Account Type</label>
+                                    <select name="type" required>
+                                        <option value="Savings">Savings</option>
+                                        <option value="Checking">Checking</option>
+                                        <option value="Business">Business</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Initial Balance ($)</label>
+                                    <input type="number" name="balance" required min="0" placeholder="5000">
+                                </div>
+                                <div class="form-group">
+                                    <label>Customer ID</label>
+                                    <input type="text" name="customerId" required placeholder="C001">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Create Account</button>
+                            </form>
+                        </div>
+                        <div class="card table-card">
+                            <h2>Account Details</h2>
+                            <div class="table-responsive">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Acc ID</th>
+                                            <th>Type</th>
+                                            <th>Balance ($)</th>
+                                            <th>Cust ID</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="account-tbody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TRANSACTION VIEW -->
+                <section id="transaction-view" class="view">
+                    <div class="view-header">
+                        <h1>Transactions</h1>
+                    </div>
+                    <div class="grid-layout">
+                        <div class="card">
+                            <h2>New Transaction</h2>
+                            <form id="transaction-form">
+                                <div class="form-group">
+                                    <label>Transaction ID</label>
+                                    <input type="text" name="id" required placeholder="T001">
+                                </div>
+                                <div class="form-group">
+                                    <label>Date</label>
+                                    <input type="date" name="date" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Amount ($)</label>
+                                    <input type="number" name="amount" required min="1" placeholder="100">
+                                </div>
+                                <div class="form-group">
+                                    <label>Account ID</label>
+                                    <input type="text" name="accountId" required placeholder="A001">
+                                </div>
+                                <div class="form-group">
+                                    <label>Mode</label>
+                                    <select name="mode" required>
+                                        <option value="Deposit">Deposit</option>
+                                        <option value="Withdrawal">Withdrawal</option>
+                                        <option value="Transfer">Transfer</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Process Transaction</button>
+                            </form>
+                        </div>
+                        <div class="card table-card">
+                            <h2>Transaction History</h2>
+                            <div class="table-responsive">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Txn ID</th>
+                                            <th>Date</th>
+                                            <th>Amount ($)</th>
+                                            <th>Mode</th>
+                                            <th>Account ID</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="transaction-tbody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- LOAN VIEW -->
+                <section id="loan-view" class="view">
+                    <div class="view-header">
+                        <h1>Loan Origination</h1>
+                    </div>
+                    <div class="grid-layout">
+                        <div class="card">
+                            <h2>Apply for Loan</h2>
+                            <form id="loan-form">
+                                <div class="form-group">
+                                    <label>Loan ID</label>
+                                    <input type="text" name="id" required placeholder="L001">
+                                </div>
+                                <div class="form-group">
+                                    <label>Amount ($)</label>
+                                    <input type="number" name="amount" required min="1000">
+                                </div>
+                                <div class="form-group">
+                                    <label>Type</label>
+                                    <select name="type" required>
+                                        <option value="Home">Home Loan</option>
+                                        <option value="Auto">Auto Loan</option>
+                                        <option value="Personal">Personal</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Interest Rate (%)</label>
+                                    <input type="number" step="0.1" name="interest" required placeholder="5.5">
+                                </div>
+                                <div class="form-group">
+                                    <label>Issue Date</label>
+                                    <input type="date" name="issueDate" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Due Date</label>
+                                    <input type="date" name="dueDate" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Status</label>
+                                    <select name="status" required>
+                                        <option value="Active">Active</option>
+                                        <option value="Closed">Closed</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Customer ID</label>
+                                    <input type="text" name="customerId" required placeholder="C001">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Approve Loan</button>
+                            </form>
+                        </div>
+                        <div class="card table-card">
+                            <h2>Active Loans</h2>
+                            <div class="table-responsive">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Loan ID</th>
+                                            <th>Amount</th>
+                                            <th>Type</th>
+                                            <th>Rate (%)</th>
+                                            <th>Issued</th>
+                                            <th>Due</th>
+                                            <th>Status</th>
+                                            <th>Cust ID</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="loan-tbody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PAYMENT VIEW -->
+                <section id="payment-view" class="view">
+                    <div class="view-header">
+                        <h1>Loan Payments</h1>
+                    </div>
+                    <div class="grid-layout">
+                        <div class="card">
+                            <h2>Process Payment</h2>
+                            <form id="payment-form">
+                                <div class="form-group">
+                                    <label>Payment ID</label>
+                                    <input type="text" name="id" required placeholder="P001">
+                                </div>
+                                <div class="form-group">
+                                    <label>Loan ID</label>
+                                    <input type="text" name="loanId" required placeholder="L001">
+                                </div>
+                                <div class="form-group">
+                                    <label>Amount ($)</label>
+                                    <input type="number" name="amount" required min="1">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Record Payment</button>
+                            </form>
+                        </div>
+                        <div class="card table-card">
+                            <h2>Payment History</h2>
+                            <div class="table-responsive">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Payment ID</th>
+                                            <th>Loan ID</th>
+                                            <th>Amount ($)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="payment-tbody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- EMPLOYEE VIEW -->
+                <section id="employee-view" class="view">
+                    <div class="view-header">
+                        <h1>Employee Roster</h1>
+                    </div>
+                    <div class="grid-layout">
+                        <div class="card">
+                            <h2>Add Employee</h2>
+                            <form id="employee-form">
+                                <div class="form-group">
+                                    <label>Employee ID</label>
+                                    <input type="text" name="id" required placeholder="E001">
+                                </div>
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input type="text" name="name" required placeholder="Jane Smith">
+                                </div>
+                                <div class="form-group">
+                                    <label>Salary ($)</label>
+                                    <input type="number" name="salary" required min="10000">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Add Employee</button>
+                            </form>
+                        </div>
+                        <div class="card table-card">
+                            <h2>Staff Directory</h2>
+                            <div class="table-responsive">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Emp ID</th>
+                                            <th>Name</th>
+                                            <th>Salary ($)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="employee-tbody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- BANK & BRANCH VIEW -->
+                <section id="bank-view" class="view">
+                    <div class="view-header">
+                        <h1>Bank & Branch Directory</h1>
+                    </div>
+                    <div class="card table-card">
+                        <h2>Branch Details</h2>
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Bank ID</th>
+                                        <th>Bank Name</th>
+                                        <th>City</th>
+                                        <th>Branch ID</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="bank-tbody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <script src="Javascript.js"></script>
+</body>
+</html>

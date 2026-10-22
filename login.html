@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexBank — Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background:
+                linear-gradient(rgba(13,31,51,0.78), rgba(13,31,51,0.78)),
+                url('https://images.unsplash.com/photo-1601597111158-2fceff292cdc?w=1800&auto=format&fit=crop') center/cover no-repeat fixed;
+        }
+        .login-card {
+            background: rgba(255,255,255,0.96);
+            border-radius: 20px;
+            padding: 48px 40px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 24px 48px rgba(0,0,0,0.3);
+        }
+        .brand { text-align: center; margin-bottom: 32px; }
+        .brand i { font-size: 2.4rem; color: #c9a84c; }
+        .brand h1 { font-family: 'Sora', sans-serif; font-size: 1.8rem; color: #0d1f33; margin-top: 8px; }
+        .brand p  { color: #5a7184; font-size: 0.9rem; margin-top: 4px; }
+        .form-group { margin-bottom: 18px; }
+        .form-group label { display: block; font-size: 0.85rem; font-weight: 600; color: #0d1f33; margin-bottom: 6px; }
+        .form-group input {
+            width: 100%; padding: 12px 14px; border: 1.5px solid #d2dce6;
+            border-radius: 10px; font-size: 0.95rem; outline: none; transition: border 0.2s;
+        }
+        .form-group input:focus { border-color: #1a3a5c; box-shadow: 0 0 0 3px rgba(26,58,92,0.12); }
+        .btn-login {
+            width: 100%; padding: 13px; background: linear-gradient(135deg,#1a3a5c,#2a5298);
+            color: #fff; border: none; border-radius: 10px; font-size: 1rem;
+            font-family: 'Sora', sans-serif; font-weight: 600; cursor: pointer;
+            box-shadow: 0 4px 14px rgba(13,31,51,0.25); transition: all 0.2s;
+        }
+        .btn-login:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(13,31,51,0.35); }
+        .error-msg { color: #dc2626; font-size: 0.85rem; margin-top: 12px; text-align: center; display: none; }
+        .hint { text-align: center; margin-top: 20px; font-size: 0.8rem; color: #5a7184; }
+        .hint code { background: #f0f4f8; padding: 2px 6px; border-radius: 4px; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+    <div class="login-card">
+        <div class="brand">
+            <i class="fa-solid fa-building-columns"></i>
+            <h1>NexBank</h1>
+            <p>Secure Banking Management Portal</p>
+        </div>
+        <form id="login-form">
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" id="username" placeholder="Enter username" required autocomplete="username">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="password" placeholder="Enter password" required autocomplete="current-password">
+            </div>
+            <button type="submit" class="btn-login"><i class="fa-solid fa-right-to-bracket"></i> Sign In</button>
+            <p class="error-msg" id="error-msg"></p>
+        </form>
+        <p class="hint">Default admin: <code>admin</code> / <code>admin123</code></p>
+    </div>
+    <script>
+        // If already logged in, skip login page
+        if (localStorage.getItem('nexbank_token')) {
+            window.location.replace('/dashboard');
+        }
+
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const errEl = document.getElementById('error-msg');
+            errEl.style.display = 'none';
+            const res = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    username: document.getElementById('username').value,
+                    password: document.getElementById('password').value
+                })
+            });
+            const data = await res.json();
+            if (res.ok) {
+                localStorage.setItem('nexbank_token', data.token);
+                localStorage.setItem('nexbank_role',  data.role);
+                localStorage.setItem('nexbank_user',  data.username);
+                window.location.href = '/dashboard';
+            } else {
+                errEl.textContent = data.error || 'Login failed.';
+                errEl.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

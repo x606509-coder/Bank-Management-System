@@ -1,0 +1,17 @@
+{
+  "name": "nexbank-management",
+  "version": "2.0.0",
+  "description": "Full-stack Bank Management System with SQLite, JWT auth, audit log",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "better-sqlite3": "^13.0.3",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "express-validator": "^7.0.1",
+    "jsonwebtoken": "^9.0.2"
+  }
+}
